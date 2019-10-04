@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cc.femto.architecture.reactive.components.home.HomeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Toolbar"
+        android:layout_width="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:title="@string/app_name">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/query_edit_text"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:drawableStart="@drawable/ic_search_black_24dp"
+                android:drawablePadding="16dp"
+                android:gravity="center_vertical"
+                android:hint="@string/main_search_hint"
+                android:importantForAutofill="no"
+                android:inputType="textFilter|textAutoComplete|textCapWords"
+                android:lines="1"
+                android:minHeight="56dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="48dp"
+                android:textColor="@color/textColorPrimaryInverse"
+                android:textColorHint="@color/textColorPrimaryInverse"
+                app:drawableTint="@color/textColorPrimaryInverse" />
+
+            <ImageButton
+                android:id="@+id/clear_query_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:padding="12dp"
+                android:src="@drawable/ic_clear_black_24dp"
+                android:tint="@color/textColorPrimaryInverse" />
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <include
+        android:id="@+id/repositories"
+        layout="@layout/repositories_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+</cc.femto.architecture.reactive.components.home.HomeLayout>

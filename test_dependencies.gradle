@@ -1,0 +1,8 @@
+dependencies {
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:${versions.kotlin}"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
+    testImplementation "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}"
+    testImplementation "org.spekframework.spek2:spek-dsl-jvm:${versions.spek}"
+    testImplementation "org.spekframework.spek2:spek-runner-junit5:${versions.spek}"
+    testImplementation 'cc.femto:spek-rx-android-extras:1.0.0'
+}
