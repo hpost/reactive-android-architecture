@@ -3,6 +3,7 @@
 
     <string name="default_error_message">Something went wrong.</string>
     <string name="retry_button">Retry</string>
+    <string name="clear_button">Clear</string>
 
-    <string name="main_search_hint">Search GitHub repositories</string>
+    <string name="home_search_hint">Search GitHub repositories</string>
 </resources>

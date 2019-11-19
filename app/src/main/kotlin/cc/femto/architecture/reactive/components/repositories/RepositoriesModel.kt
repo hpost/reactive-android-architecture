@@ -5,6 +5,7 @@ import cc.femto.architecture.reactive.data.api.SearchRepositoriesEvent
 import cc.femto.kommon.extensions.v
 import cc.femto.mvi.BaseModel
 import cc.femto.mvi.Event
+import cc.femto.rx.extensions.mapOnce
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.ofType
@@ -24,9 +25,13 @@ class RepositoriesModel @Inject constructor(
     override fun initialState() = RepositoriesState()
 
     override fun makeStateMutations(actions: Observable<RepositoriesAction>): Observable<out Event> {
-        val searchRepositories = actions.ofType<RepositoriesAction.SearchRepositories>()
-            .filter { (query) -> query.isNotBlank() }
-            .switchMap { searchApi.searchRepositories(it.query, sort = "stars") }
+        val searchRepositories = Observable.merge(
+            events().ofType<InitEvent>().map { it.query },
+            actions.ofType<RepositoriesAction.RetrySearch>()
+                .flatMap { state().mapOnce { query } }
+        )
+            .filter { query -> query.isNotBlank() }
+            .switchMap { query -> searchApi.searchRepositories(query, sort = "stars") }
 
         return Observable.mergeArray(
             searchRepositories
@@ -34,6 +39,9 @@ class RepositoriesModel @Inject constructor(
     }
 
     override fun reduce(state: RepositoriesState, event: Event) = when (event) {
+        is InitEvent -> state.copy(
+            query = event.query
+        )
         is SearchRepositoriesEvent.InProgress -> state.copy(
             isLoading = true,
             isError = false
@@ -61,4 +69,6 @@ class RepositoriesModel @Inject constructor(
             openRepositoryDetails
         )
     }
+
+    data class InitEvent(val query: String) : Event
 }

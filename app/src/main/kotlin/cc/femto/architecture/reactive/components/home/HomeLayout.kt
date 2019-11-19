@@ -4,9 +4,11 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
 import cc.femto.architecture.reactive.App
-import cc.femto.architecture.reactive.components.repositories.RepositoriesAction
 import cc.femto.architecture.reactive.components.repositories.RepositoriesLayout
 import cc.femto.architecture.reactive.components.repositories.RepositoriesModel
+import cc.femto.architecture.reactive.components.repositories.RepositoriesState
+import cc.femto.kommon.extensions.invisible
+import cc.femto.kommon.extensions.visible
 import cc.femto.mvi.BaseView
 import cc.femto.mvi.attachComponent
 import cc.femto.rx.extensions.mapDistinct
@@ -41,9 +43,14 @@ class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
 
         attachComponent(
             repositories as RepositoriesLayout,
-            repositoriesModel,
-            state.mapDistinct { RepositoriesAction.SearchRepositories(query) }
-        )
+            repositoriesModel
+        ) {
+            disposables += renderRepositoriesState(
+                repositoriesModel.state().observeOn(AndroidSchedulers.mainThread())
+            )
+            disposables += state.mapDistinct { query }
+                .subscribe { repositoriesModel.dispatchEvent(RepositoriesModel.InitEvent(it)) }
+        }
     }
 
     override fun onFinishInflate() {
@@ -66,6 +73,7 @@ class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
             .map { HomeAction.QueryInput(it.toString()) }
 
         val clearQueryClicks = clear_query_button.clicks()
+            .throttleFirst(500, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
             .map { HomeAction.ClearQuery }
 
         disposables += Observable.mergeArray(
@@ -82,6 +90,26 @@ class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
 
         return CompositeDisposable(
             query
+        )
+    }
+
+    private fun renderRepositoriesState(state: Observable<RepositoriesState>): CompositeDisposable {
+        val loading = state.mapDistinct { isLoading }
+            .subscribe { isLoading ->
+                when (isLoading) {
+                    true -> {
+                        progress_bar.visible()
+                        clear_query_button.invisible()
+                    }
+                    else -> {
+                        progress_bar.invisible()
+                        clear_query_button.visible()
+                    }
+                }
+            }
+
+        return CompositeDisposable(
+            loading
         )
     }
 }

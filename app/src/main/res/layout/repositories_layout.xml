@@ -23,10 +23,4 @@
         <include layout="@layout/include_error_view" />
 
     </cc.femto.common.widget.IdViewAnimator>
-
-    <include
-        layout="@layout/include_loading_view"
-        android:visibility="invisible"
-        tools:visibility="visible" />
-
 </cc.femto.architecture.reactive.components.repositories.RepositoriesLayout>

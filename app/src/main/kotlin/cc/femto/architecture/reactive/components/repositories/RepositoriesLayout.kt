@@ -7,21 +7,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import cc.femto.architecture.reactive.App
 import cc.femto.architecture.reactive.R
 import cc.femto.architecture.reactive.components.repositories.adapter.RepositoryItem
-import cc.femto.kommon.extensions.invisible
 import cc.femto.kommon.extensions.string
-import cc.femto.kommon.extensions.visible
 import cc.femto.mvi.BaseView
 import cc.femto.rx.extensions.mapDistinct
+import com.jakewharton.rxbinding3.view.clicks
 import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.include_error_view.view.*
-import kotlinx.android.synthetic.main.include_loading_view.view.*
 import kotlinx.android.synthetic.main.repositories_layout.view.*
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class RepositoriesLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs),
@@ -48,6 +49,7 @@ class RepositoriesLayout(context: Context, attrs: AttributeSet) : ConstraintLayo
             return
         }
         setupLayout()
+        makeActions()
     }
 
     override fun onDetachedFromWindow() {
@@ -64,15 +66,17 @@ class RepositoriesLayout(context: Context, attrs: AttributeSet) : ConstraintLayo
         }
     }
 
-    override fun render(state: Observable<RepositoriesState>): CompositeDisposable {
-        val loading = state.mapDistinct { isLoading }
-            .subscribe { isLoading ->
-                when (isLoading) {
-                    true -> loading_view.visible()
-                    else -> loading_view.invisible()
-                }
-            }
+    private fun makeActions() {
+        val retry = retry_button.clicks()
+            .throttleFirst(500, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
+            .map { RepositoriesAction.RetrySearch }
 
+        disposables += Observable.mergeArray(
+            retry
+        ).subscribe(actions::onNext)
+    }
+
+    override fun render(state: Observable<RepositoriesState>): CompositeDisposable {
         val error = state.mapDistinct { isError to error }
             .subscribe { (isError, error) ->
                 view_animator.displayedChildId = when {
@@ -92,7 +96,6 @@ class RepositoriesLayout(context: Context, attrs: AttributeSet) : ConstraintLayo
             }
 
         return CompositeDisposable(
-            loading,
             error,
             repositories
         )
