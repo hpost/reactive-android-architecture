@@ -2,14 +2,14 @@
 <resources>
     <color name="transparent">#00FFFFFF</color>
 
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorSurface">#FFFFFF</color>
-    <color name="colorSecondary">#D81B60</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="primary">#008577</color>
+    <color name="primaryDark">#00574B</color>
+    <color name="secondary">#D81B60</color>
+    <color name="accent">#D81B60</color>
 
-    <color name="textColorPrimary">#333333</color>
-    <color name="textColorPrimaryInverse">#FFFFFF</color>
+    <color name="textPrimary">#333333</color>
+    <color name="textPrimaryInverse">#FFFFFF</color>
 
+    <color name="surface">#FFFFFF</color>
     <color name="background">#FFFFFF</color>
 </resources>

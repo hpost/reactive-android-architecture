@@ -1,15 +1,15 @@
 <resources>
 
-    <style name="AppTheme" parent="AppTheme.Base" />
+    <style name="Theme.App" parent="Theme.App.Base" />
 
-    <style name="AppTheme.Base" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <!--        <item name="colorSurface">@color/colorSurface</item>-->
-        <item name="colorSecondary">@color/colorSecondary</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColorPrimary">@color/textColorPrimary</item>
-        <item name="android:textColorPrimaryInverse">@color/textColorPrimaryInverse</item>
+    <style name="Theme.App.Base" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:textColorPrimary">@color/textPrimary</item>
+        <item name="android:textColorPrimaryInverse">@color/textPrimaryInverse</item>
         <item name="android:colorBackground">@color/background</item>
 
         <item name="android:windowLightStatusBar">true</item>
@@ -19,8 +19,6 @@
     <style name="Toolbar" parent="Widget.MaterialComponents.Toolbar.PrimarySurface">
         <item name="android:elevation">@dimen/toolbar_elevation</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
-        <item name="android:background">@color/colorSecondary</item>
-        <!--        <item name="android:textColor">@color/textColorPrimary</item>-->
     </style>
 
     <style name="ViewAnimator">
@@ -38,9 +36,10 @@
         <item name="android:layout_marginTop">0dp</item>
         <item name="android:layout_marginBottom">0dp</item>
         <item name="android:foreground">?attr/selectableItemBackground</item>
-        <item name="cardBackgroundColor">@color/colorSurface</item>
+        <item name="cardBackgroundColor">@color/surface</item>
         <item name="cardCornerRadius">@dimen/card_corner_radius</item>
         <item name="cardElevation">@dimen/card_elevation</item>
         <item name="cardPreventCornerOverlap">false</item>
     </style>
+
 </resources>

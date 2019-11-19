@@ -41,7 +41,7 @@
         android:layout_margin="16dp"
         android:drawableStart="@drawable/ic_star_black_18dp"
         android:drawablePadding="4dp"
-        android:drawableTint="@color/colorSecondary"
+        android:drawableTint="@color/secondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/title"
