@@ -2,6 +2,7 @@ package cc.femto.architecture.reactive.components.repositories
 
 import cc.femto.architecture.reactive.data.api.SearchApi
 import cc.femto.architecture.reactive.data.api.SearchRepositoriesEvent
+import cc.femto.architecture.reactive.data.model.SearchSort
 import cc.femto.kommon.extensions.v
 import cc.femto.mvi.BaseModel
 import cc.femto.mvi.Event
@@ -31,7 +32,7 @@ class RepositoriesModel @Inject constructor(
                 .flatMap { state().mapOnce { query } }
         )
             .filter { query -> query.isNotBlank() }
-            .switchMap { query -> searchApi.searchRepositories(query, sort = "stars") }
+            .switchMap { query -> searchApi.searchRepositories(query, sort = SearchSort.STARS) }
 
         return Observable.mergeArray(
             searchRepositories

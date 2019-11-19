@@ -1,7 +1,9 @@
 package cc.femto.architecture.reactive.data.api
 
 import cc.femto.architecture.reactive.data.model.Repository
+import cc.femto.architecture.reactive.data.model.SearchOrder
 import cc.femto.architecture.reactive.data.model.SearchRepositoriesResponse
+import cc.femto.architecture.reactive.data.model.SearchSort
 import cc.femto.kommon.extensions.isSuccess
 import cc.femto.mvi.Event
 import io.reactivex.Observable
@@ -16,8 +18,8 @@ interface SearchService {
     @GET("/search/repositories")
     fun searchRepositories(
         @Query("q") query: String,
-        @Query("sort") sort: String? = null,
-        @Query("order") order: String = "desc"
+        @Query("sort") sort: SearchSort?,
+        @Query("order") order: SearchOrder
     ): Observable<Result<SearchRepositoriesResponse>>
 }
 
@@ -28,8 +30,8 @@ class SearchApi @Inject constructor(
 
     fun searchRepositories(
         query: String,
-        sort: String? = null,
-        order: String = "desc"
+        sort: SearchSort? = null,
+        order: SearchOrder = SearchOrder.DESC
     ): Observable<SearchRepositoriesEvent> =
         service.searchRepositories(query, sort, order)
             .map {

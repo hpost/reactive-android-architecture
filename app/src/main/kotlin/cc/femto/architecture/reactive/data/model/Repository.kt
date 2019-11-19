@@ -6,6 +6,6 @@ data class Repository(
     val full_name: String,
     val owner: Owner,
     val description: String,
-    val url: String,
+    val html_url: String,
     val stargazers_count: Int
 )
