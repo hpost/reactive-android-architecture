@@ -1,14 +1,13 @@
 package cc.femto.architecture.reactive.components.repositories.adapter
 
 import cc.femto.architecture.reactive.R
-import cc.femto.architecture.reactive.data.model.Repository
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.repository_row.*
 
 class RepositoryItem(
-    private val repository: Repository,
-    private val onClickListener: (Repository) -> Unit
+    private val repository: cc.femto.architecture.reactive.api.model.Repository,
+    private val onClickListener: (cc.femto.architecture.reactive.api.model.Repository) -> Unit
 ) : Item() {
 
     override fun getLayout() = R.layout.repository_row
@@ -29,8 +28,8 @@ class RepositoryItem(
 
     companion object {
         fun from(
-            repositories: List<Repository>,
-            onClickListener: (Repository) -> Unit
+            repositories: List<cc.femto.architecture.reactive.api.model.Repository>,
+            onClickListener: (cc.femto.architecture.reactive.api.model.Repository) -> Unit
         ) = repositories.map {
             RepositoryItem(it, onClickListener)
         }

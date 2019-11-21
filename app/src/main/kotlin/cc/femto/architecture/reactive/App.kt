@@ -1,7 +1,10 @@
 package cc.femto.architecture.reactive
 
+import android.app.Activity
 import android.app.Application
-import cc.femto.architecture.reactive.di.AndroidModule
+import android.content.Context
+import android.view.View
+import cc.femto.architecture.reactive.data.BuildType
 import cc.femto.architecture.reactive.di.AppComponent
 import cc.femto.architecture.reactive.di.DaggerAppComponent
 import cc.femto.kommon.Kommon
@@ -13,19 +16,24 @@ import timber.log.Timber
 
 class App : Application() {
 
+    val appComponent: AppComponent by lazy {
+        initializeComponent()
+    }
+
+    private fun initializeComponent() = DaggerAppComponent.factory()
+        .create(
+            context = applicationContext,
+            buildType = when {
+                BuildConfig.DEBUG -> BuildType.DEBUG
+                else -> BuildType.RELEASE
+            }
+        )
+
     companion object {
-        lateinit var instance: Application
-        val component: AppComponent by lazy {
-            DaggerAppComponent.builder()
-                .androidModule(AndroidModule(instance))
-                .build()
-        }
+        fun appComponent(context: Context) = (context.applicationContext as App).appComponent
     }
 
     init {
-        instance = this
-        component.inject(this)
-
         RxJavaPlugins.setErrorHandler { throwable ->
             e("Unhandled error in stream: ${throwable.cause}", throwable)
             if (BuildConfig.DEBUG) {
@@ -37,6 +45,7 @@ class App : Application() {
     private val disposables = CompositeDisposable()
 
     override fun onCreate() {
+        appComponent.inject(this)
         super.onCreate()
 
         initLogging()
@@ -62,3 +71,6 @@ class App : Application() {
         AndroidThreeTen.init(this)
     }
 }
+
+fun Activity.appComponent() = App.appComponent(this)
+fun View.appComponent() = App.appComponent(context)

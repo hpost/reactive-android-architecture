@@ -1,6 +1,6 @@
-package cc.femto.architecture.reactive.di
+package cc.femto.architecture.reactive.api.di
 
-import cc.femto.architecture.reactive.data.api.SearchService
+import cc.femto.architecture.reactive.api.SearchService
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

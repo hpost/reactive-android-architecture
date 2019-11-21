@@ -1,4 +1,4 @@
-package cc.femto.architecture.reactive.data.model
+package cc.femto.architecture.reactive.api.model
 
 data class Owner(
     val id: Int,

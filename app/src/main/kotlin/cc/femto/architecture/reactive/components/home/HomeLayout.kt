@@ -3,7 +3,7 @@ package cc.femto.architecture.reactive.components.home
 import android.content.Context
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
-import cc.femto.architecture.reactive.App
+import cc.femto.architecture.reactive.appComponent
 import cc.femto.architecture.reactive.components.repositories.RepositoriesLayout
 import cc.femto.architecture.reactive.components.repositories.RepositoriesModel
 import cc.femto.architecture.reactive.components.repositories.RepositoriesState
@@ -32,12 +32,6 @@ class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
     override val disposables = CompositeDisposable()
     override val actions = PublishSubject.create<HomeAction>()
 
-    init {
-        if (!isInEditMode) {
-            App.component.inject(this)
-        }
-    }
-
     override fun attach(state: Observable<HomeState>) {
         super.attach(state)
 
@@ -55,9 +49,8 @@ class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        if (isInEditMode) {
-            return
-        }
+        if (isInEditMode) return
+        appComponent().inject(this) // TODO use HomeComponent
         makeActions()
     }
 

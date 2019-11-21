@@ -11,10 +11,11 @@ import com.gojuno.koptional.Optional
 import com.gojuno.koptional.rxjava2.filterSome
 import com.gojuno.koptional.toOptional
 import com.google.gson.Gson
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class Session(sharedPreferences: SharedPreferences, gson: Gson) {
+class Session @Inject constructor(sharedPreferences: SharedPreferences, gson: Gson) {
 
     private val query: Preference<Optional<String>>
 

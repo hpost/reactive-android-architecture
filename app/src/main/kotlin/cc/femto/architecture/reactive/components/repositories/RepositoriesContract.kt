@@ -1,6 +1,6 @@
 package cc.femto.architecture.reactive.components.repositories
 
-import cc.femto.architecture.reactive.data.model.Repository
+import cc.femto.architecture.reactive.api.model.Repository
 import cc.femto.mvi.Action
 
 data class RepositoriesState(

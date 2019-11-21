@@ -1,9 +1,8 @@
 package cc.femto.architecture.reactive.di
 
-import android.app.Application
-import cc.femto.architecture.reactive.BuildConfig
+import android.content.Context
+import cc.femto.architecture.reactive.data.BuildType
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.readystatesoftware.chuck.ChuckInterceptor
 import com.squareup.picasso.Picasso
 import dagger.Module
@@ -35,25 +34,18 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideLoggingInterceptor(): HttpLoggingInterceptor =
+    fun provideLoggingInterceptor(buildType: BuildType): HttpLoggingInterceptor =
         HttpLoggingInterceptor().apply {
-            level = when {
-                BuildConfig.DEBUG -> HttpLoggingInterceptor.Level.BASIC
+            level = when (buildType) {
+                BuildType.DEBUG -> HttpLoggingInterceptor.Level.BASIC
                 else -> HttpLoggingInterceptor.Level.NONE
             }
         }
 
     @Provides
     @Singleton
-    fun provideChuckInterceptor(context: Application): ChuckInterceptor =
+    fun provideChuckInterceptor(context: Context): ChuckInterceptor =
         ChuckInterceptor(context)
-
-    @Provides
-    @Singleton
-    fun provideGson(): Gson =
-        GsonBuilder()
-            .serializeNulls()
-            .create()
 
     @Provides
     @Singleton
@@ -67,8 +59,8 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun providePicasso(app: Application): Picasso =
-        Picasso.Builder(app)
+    fun providePicasso(context: Context): Picasso =
+        Picasso.Builder(context)
             .listener { _, uri, e -> Timber.e(e, "Failed to load image: %s", uri) }
             .build()
 }
