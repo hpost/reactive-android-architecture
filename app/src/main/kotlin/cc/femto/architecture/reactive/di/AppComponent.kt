@@ -3,9 +3,7 @@ package cc.femto.architecture.reactive.di
 import android.content.Context
 import cc.femto.architecture.reactive.App
 import cc.femto.architecture.reactive.api.di.ApiModule
-import cc.femto.architecture.reactive.components.home.HomeActivity
-import cc.femto.architecture.reactive.components.home.HomeLayout
-import cc.femto.architecture.reactive.components.repositories.RepositoriesLayout
+import cc.femto.architecture.reactive.components.home.di.HomeComponent
 import cc.femto.architecture.reactive.data.BuildType
 import dagger.BindsInstance
 import dagger.Component
@@ -17,6 +15,7 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
+        AppSubcomponentsModule::class,
         CoreModule::class,
         StorageModule::class,
         NetworkModule::class,
@@ -33,10 +32,7 @@ interface AppComponent {
         ): AppComponent
     }
 
+    fun homeComponent(): HomeComponent.Factory
+
     fun inject(app: App)
-
-    fun inject(activity: HomeActivity)
-    fun inject(layout: HomeLayout)
-
-    fun inject(layout: RepositoriesLayout)
 }

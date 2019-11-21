@@ -1,12 +1,12 @@
-package cc.femto.architecture.reactive.components.repositories
+package cc.femto.architecture.reactive.components.home.repositories
 
 import android.content.Context
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import cc.femto.architecture.reactive.R
-import cc.femto.architecture.reactive.appComponent
-import cc.femto.architecture.reactive.components.repositories.adapter.RepositoryItem
+import cc.femto.architecture.reactive.components.home.HomeActivity
+import cc.femto.architecture.reactive.components.home.repositories.adapter.RepositoryItem
 import cc.femto.kommon.extensions.string
 import cc.femto.mvi.BaseView
 import cc.femto.rx.extensions.mapDistinct
@@ -40,7 +40,7 @@ class RepositoriesLayout(context: Context, attrs: AttributeSet) : ConstraintLayo
     override fun onFinishInflate() {
         super.onFinishInflate()
         if (isInEditMode) return
-        appComponent().inject(this)
+        (context as HomeActivity).homeComponent.inject(this)
         setupLayout()
         makeActions()
     }
@@ -84,7 +84,11 @@ class RepositoriesLayout(context: Context, attrs: AttributeSet) : ConstraintLayo
         val repositories = state.mapDistinct { repositories }
             .subscribe {
                 repositoriesSection.update(RepositoryItem.from(it) { repository ->
-                    actions.onNext(RepositoriesAction.TapOnRepository(repository))
+                    actions.onNext(
+                        RepositoriesAction.TapOnRepository(
+                            repository
+                        )
+                    )
                 })
             }
 

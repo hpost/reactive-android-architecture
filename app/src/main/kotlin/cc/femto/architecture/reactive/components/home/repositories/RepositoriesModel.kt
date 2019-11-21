@@ -1,8 +1,9 @@
-package cc.femto.architecture.reactive.components.repositories
+package cc.femto.architecture.reactive.components.home.repositories
 
 import cc.femto.architecture.reactive.api.SearchApi
 import cc.femto.architecture.reactive.api.SearchRepositoriesEvent
 import cc.femto.architecture.reactive.api.model.SearchSort
+import cc.femto.architecture.reactive.di.ActivityScope
 import cc.femto.kommon.extensions.v
 import cc.femto.mvi.BaseModel
 import cc.femto.mvi.Event
@@ -13,6 +14,7 @@ import io.reactivex.rxkotlin.ofType
 import io.reactivex.rxkotlin.plusAssign
 import javax.inject.Inject
 
+@ActivityScope
 class RepositoriesModel @Inject constructor(
     private val searchApi: SearchApi
 ) : BaseModel<RepositoriesAction, RepositoriesState>() {

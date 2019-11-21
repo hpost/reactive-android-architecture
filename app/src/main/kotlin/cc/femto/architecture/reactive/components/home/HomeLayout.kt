@@ -3,10 +3,9 @@ package cc.femto.architecture.reactive.components.home
 import android.content.Context
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
-import cc.femto.architecture.reactive.appComponent
-import cc.femto.architecture.reactive.components.repositories.RepositoriesLayout
-import cc.femto.architecture.reactive.components.repositories.RepositoriesModel
-import cc.femto.architecture.reactive.components.repositories.RepositoriesState
+import cc.femto.architecture.reactive.components.home.repositories.RepositoriesLayout
+import cc.femto.architecture.reactive.components.home.repositories.RepositoriesModel
+import cc.femto.architecture.reactive.components.home.repositories.RepositoriesState
 import cc.femto.kommon.extensions.invisible
 import cc.femto.kommon.extensions.visible
 import cc.femto.mvi.BaseView
@@ -50,7 +49,7 @@ class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
     override fun onFinishInflate() {
         super.onFinishInflate()
         if (isInEditMode) return
-        appComponent().inject(this) // TODO use HomeComponent
+        (context as HomeActivity).homeComponent.inject(this)
         makeActions()
     }
 

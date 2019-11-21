@@ -1,4 +1,4 @@
-package cc.femto.architecture.reactive.components.repositories.adapter
+package cc.femto.architecture.reactive.components.home.repositories.adapter
 
 import cc.femto.architecture.reactive.R
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
@@ -31,7 +31,10 @@ class RepositoryItem(
             repositories: List<cc.femto.architecture.reactive.api.model.Repository>,
             onClickListener: (cc.femto.architecture.reactive.api.model.Repository) -> Unit
         ) = repositories.map {
-            RepositoryItem(it, onClickListener)
+            RepositoryItem(
+                it,
+                onClickListener
+            )
         }
     }
 }

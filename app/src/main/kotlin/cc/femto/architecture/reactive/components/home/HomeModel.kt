@@ -1,5 +1,6 @@
 package cc.femto.architecture.reactive.components.home
 
+import cc.femto.architecture.reactive.di.ActivityScope
 import cc.femto.kommon.extensions.v
 import cc.femto.mvi.BaseModel
 import cc.femto.mvi.Event
@@ -8,6 +9,7 @@ import io.reactivex.rxkotlin.ofType
 import io.reactivex.rxkotlin.plusAssign
 import javax.inject.Inject
 
+@ActivityScope
 class HomeModel @Inject constructor() : BaseModel<HomeAction, HomeState>() {
 
     override fun attach(actions: Observable<HomeAction>) {

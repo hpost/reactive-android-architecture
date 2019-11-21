@@ -1,4 +1,4 @@
-package cc.femto.architecture.reactive.components.repositories
+package cc.femto.architecture.reactive.components.home.repositories
 
 import cc.femto.architecture.reactive.api.model.Repository
 import cc.femto.mvi.Action

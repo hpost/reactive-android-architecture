@@ -3,19 +3,24 @@ package cc.femto.architecture.reactive.components.home
 import android.os.Bundle
 import cc.femto.android.common.activity.ModelViewIntentActivity
 import cc.femto.architecture.reactive.R
-import cc.femto.architecture.reactive.components.home.di.inject
+import cc.femto.architecture.reactive.appComponent
+import cc.femto.architecture.reactive.components.home.di.HomeComponent
 import javax.inject.Inject
 
 class HomeActivity : ModelViewIntentActivity<HomeAction, HomeState>() {
 
-    @Inject lateinit var model: HomeModel
+    lateinit var homeComponent: HomeComponent
+
+    @Inject
+    lateinit var model: HomeModel
 
     override fun layout() = R.layout.home_layout
 
     override fun model() = model
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        inject()
+        homeComponent = appComponent().homeComponent().create()
+        homeComponent.inject(this)
         super.onCreate(savedInstanceState)
     }
 }
