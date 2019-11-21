@@ -1,4 +1,4 @@
-package cc.femto.common.util.gson
+package cc.femto.android.common.util.gson
 
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type

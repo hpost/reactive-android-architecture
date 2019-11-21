@@ -39,6 +39,7 @@ androidExtensions {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation project(':common')
     implementation project(':api')
 
     kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
@@ -62,7 +63,6 @@ dependencies {
     implementation "com.jakewharton.rxbinding3:rxbinding-appcompat:${versions.rxbinding}"
     implementation "com.jakewharton.rxbinding3:rxbinding-recyclerview:${versions.rxbinding}"
     implementation "com.jakewharton.rxbinding3:rxbinding-material:${versions.rxbinding}"
-    implementation 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0'
 
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.0.1'
