@@ -7,7 +7,6 @@ import cc.femto.architecture.reactive.api.model.SearchSort
 import cc.femto.kommon.extensions.isSuccess
 import cc.femto.mvi.Event
 import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
 import retrofit2.adapter.rxjava2.Result
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -43,7 +42,6 @@ class SearchApi @Inject constructor(
                 }
             }
             .startWith(SearchRepositoriesEvent.InProgress)
-            .subscribeOn(Schedulers.io())
 }
 
 sealed class SearchRepositoriesEvent : Event {

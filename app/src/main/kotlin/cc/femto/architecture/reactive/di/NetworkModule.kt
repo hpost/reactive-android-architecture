@@ -7,6 +7,8 @@ import com.readystatesoftware.chuck.ChuckInterceptor
 import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
+import io.reactivex.Scheduler
+import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -54,8 +56,11 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRxJavaCallAdapterFactory(): RxJava2CallAdapterFactory =
-        RxJava2CallAdapterFactory.create()
+    fun provideRxJavaCallAdapterFactory(scheduler: Scheduler): RxJava2CallAdapterFactory =
+        RxJava2CallAdapterFactory.createWithScheduler(scheduler)
+
+    @Provides
+    fun provideRetrofitScheduler(): Scheduler = Schedulers.io()
 
     @Provides
     @Singleton
