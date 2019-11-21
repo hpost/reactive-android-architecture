@@ -11,7 +11,7 @@ buildscript {
         'rxjava': '2.1.14',
         'rxbinding': '3.0.0',
         'okhttp': '4.0.1',
-        'retrofit': '2.6.0',
+        'retrofit': '2.6.2',
         'chuck': '1.1.0',
         'androidJunit5': '1.5.1.0',
         'spek': '2.0.8',
