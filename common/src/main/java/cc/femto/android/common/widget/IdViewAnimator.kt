@@ -1,4 +1,4 @@
-package cc.femto.common.widget
+package cc.femto.android.common.widget
 
 import android.content.Context
 import android.util.AttributeSet

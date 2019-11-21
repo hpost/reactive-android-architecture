@@ -1,8 +1,8 @@
 package cc.femto.architecture.reactive.data
 
 import android.content.SharedPreferences
-import cc.femto.common.util.gson.genericType
-import cc.femto.common.util.rxpreferences.GsonOptionalPreferenceConverter
+import cc.femto.android.common.util.gson.genericType
+import cc.femto.android.common.util.rxpreferences.GsonOptionalPreferenceConverter
 import cc.femto.mvi.Event
 import com.f2prateek.rx.preferences2.Preference
 import com.f2prateek.rx.preferences2.RxSharedPreferences

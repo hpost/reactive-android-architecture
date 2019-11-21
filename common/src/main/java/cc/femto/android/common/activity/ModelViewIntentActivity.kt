@@ -1,4 +1,4 @@
-package cc.femto.common.activity
+package cc.femto.android.common.activity
 
 import android.os.Bundle
 import cc.femto.mvi.Action

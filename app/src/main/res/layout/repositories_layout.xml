@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <cc.femto.common.widget.IdViewAnimator
+    <cc.femto.android.common.widget.IdViewAnimator
         android:id="@+id/view_animator"
         style="@style/ViewAnimator"
         android:layout_width="match_parent"
@@ -22,5 +22,5 @@
 
         <include layout="@layout/include_error_view" />
 
-    </cc.femto.common.widget.IdViewAnimator>
+    </cc.femto.android.common.widget.IdViewAnimator>
 </cc.femto.architecture.reactive.components.repositories.RepositoriesLayout>

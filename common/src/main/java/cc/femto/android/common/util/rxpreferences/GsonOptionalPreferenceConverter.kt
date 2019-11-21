@@ -1,4 +1,4 @@
-package cc.femto.common.util.rxpreferences
+package cc.femto.android.common.util.rxpreferences
 
 import com.f2prateek.rx.preferences2.Preference
 import com.gojuno.koptional.Optional
