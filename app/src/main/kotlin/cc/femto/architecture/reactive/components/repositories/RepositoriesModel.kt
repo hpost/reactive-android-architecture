@@ -1,8 +1,8 @@
 package cc.femto.architecture.reactive.components.repositories
 
-import cc.femto.architecture.reactive.data.api.SearchApi
-import cc.femto.architecture.reactive.data.api.SearchRepositoriesEvent
-import cc.femto.architecture.reactive.data.model.SearchSort
+import cc.femto.architecture.reactive.api.SearchApi
+import cc.femto.architecture.reactive.api.SearchRepositoriesEvent
+import cc.femto.architecture.reactive.api.model.SearchSort
 import cc.femto.kommon.extensions.v
 import cc.femto.mvi.BaseModel
 import cc.femto.mvi.Event

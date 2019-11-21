@@ -1,9 +1,9 @@
-package cc.femto.architecture.reactive.data.api
+package cc.femto.architecture.reactive.api
 
-import cc.femto.architecture.reactive.data.model.Repository
-import cc.femto.architecture.reactive.data.model.SearchOrder
-import cc.femto.architecture.reactive.data.model.SearchRepositoriesResponse
-import cc.femto.architecture.reactive.data.model.SearchSort
+import cc.femto.architecture.reactive.api.model.Repository
+import cc.femto.architecture.reactive.api.model.SearchOrder
+import cc.femto.architecture.reactive.api.model.SearchRepositoriesResponse
+import cc.femto.architecture.reactive.api.model.SearchSort
 import cc.femto.kommon.extensions.isSuccess
 import cc.femto.mvi.Event
 import io.reactivex.Observable
