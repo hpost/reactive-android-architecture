@@ -1,10 +1,8 @@
 package cc.femto.architecture.reactive.api.model
 
-import com.google.gson.annotations.SerializedName
+enum class SearchOrder(val value: String) {
+    ASC("asc"),
+    DESC("desc");
 
-enum class SearchOrder {
-    @SerializedName("asc")
-    ASC,
-    @SerializedName("desc")
-    DESC
+    override fun toString() = value
 }
