@@ -11,6 +11,7 @@ import com.gojuno.koptional.Optional
 import com.gojuno.koptional.rxjava2.filterSome
 import com.gojuno.koptional.toOptional
 import com.google.gson.Gson
+import io.reactivex.Observable
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -30,7 +31,7 @@ class Session @Inject constructor(sharedPreferences: SharedPreferences, gson: Gs
         query = rxPreferences.getObject("query", None, stringConverter)
     }
 
-    fun query() = query.asObservable()
+    fun query(): Observable<SessionEvent.Query> = query.asObservable()
         .filterSome()
         .map { SessionEvent.Query(it) }
 

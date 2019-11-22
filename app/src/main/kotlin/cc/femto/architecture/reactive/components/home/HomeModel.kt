@@ -1,16 +1,21 @@
 package cc.femto.architecture.reactive.components.home
 
+import cc.femto.architecture.reactive.data.Session
+import cc.femto.architecture.reactive.data.SessionEvent
 import cc.femto.architecture.reactive.di.ActivityScope
 import cc.femto.kommon.extensions.v
 import cc.femto.mvi.BaseModel
 import cc.femto.mvi.Event
 import io.reactivex.Observable
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.ofType
 import io.reactivex.rxkotlin.plusAssign
 import javax.inject.Inject
 
 @ActivityScope
-class HomeModel @Inject constructor() : BaseModel<HomeAction, HomeState>() {
+class HomeModel @Inject constructor(
+    private val session: Session
+) : BaseModel<HomeAction, HomeState>() {
 
     override fun attach(actions: Observable<HomeAction>) {
         super.attach(actions)
@@ -21,6 +26,21 @@ class HomeModel @Inject constructor() : BaseModel<HomeAction, HomeState>() {
     override fun initialState() = HomeState()
 
     override fun makeStateMutations(actions: Observable<HomeAction>): Observable<out Event> {
+        val persistedQuery = session.query()
+
+        return Observable.mergeArray(
+            persistedQuery
+        )
+    }
+
+    override fun reduce(state: HomeState, event: Event) = when (event) {
+        is SessionEvent.Query -> state.copy(
+            query = event.query
+        )
+        else -> state
+    }
+
+    override fun makeSideEffects(actions: Observable<HomeAction>): CompositeDisposable {
         val queryInput = actions.ofType<HomeAction.QueryInput>()
             .distinctUntilChanged()
             .map { QueryInputEvent(it.query) }
@@ -28,33 +48,13 @@ class HomeModel @Inject constructor() : BaseModel<HomeAction, HomeState>() {
         val clearQuery = actions.ofType<HomeAction.ClearQuery>()
             .map { QueryInputEvent("") }
 
-        return Observable.mergeArray(
-            queryInput,
-            clearQuery
+        val persistQuery = Observable.merge(queryInput, clearQuery)
+            .subscribe { (query) -> session.setQuery(query) }
+
+        return CompositeDisposable(
+            persistQuery
         )
     }
 
-    override fun reduce(state: HomeState, event: Event) = when (event) {
-//        is InitEvent -> state.copy(
-//            init = event.init
-//        )
-        is QueryInputEvent -> state.copy(
-            query = event.query
-        )
-        else -> state
-    }
-
-//    override fun makeSideEffects(actions: Observable<HomeAction>): CompositeDisposable {
-//        val foo = events().ofType<TestEvent>()
-//            .subscribe {
-//                /* side-effect */
-//            }
-//
-//        return CompositeDisposable(
-//            foo
-//        )
-//    }
-
-    data class InitEvent(val init: Int) : Event
     private data class QueryInputEvent(val query: String) : Event
 }
