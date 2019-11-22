@@ -58,6 +58,8 @@ dependencies {
     implementation 'androidx.viewpager:viewpager:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
 
+    implementation "org.jetbrains.anko:anko-commons:0.10.8"
+
     implementation "com.jakewharton.rxbinding3:rxbinding:${versions.rxbinding}"
     implementation "com.jakewharton.rxbinding3:rxbinding-core:${versions.rxbinding}"
     implementation "com.jakewharton.rxbinding3:rxbinding-appcompat:${versions.rxbinding}"

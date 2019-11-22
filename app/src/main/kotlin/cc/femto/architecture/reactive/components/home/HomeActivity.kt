@@ -19,7 +19,7 @@ class HomeActivity : ModelViewIntentActivity<HomeAction, HomeState>() {
     override fun model() = model
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        homeComponent = appComponent().homeComponent().create()
+        homeComponent = appComponent().homeComponent().create(this)
         homeComponent.inject(this)
         super.onCreate(savedInstanceState)
     }

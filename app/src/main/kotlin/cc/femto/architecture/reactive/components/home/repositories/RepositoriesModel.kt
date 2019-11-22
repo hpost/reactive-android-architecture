@@ -4,6 +4,7 @@ import cc.femto.architecture.reactive.api.SearchApi
 import cc.femto.architecture.reactive.api.SearchRepositoriesEvent
 import cc.femto.architecture.reactive.api.model.SearchSort
 import cc.femto.architecture.reactive.di.ActivityScope
+import cc.femto.architecture.reactive.navigation.Navigator
 import cc.femto.kommon.extensions.v
 import cc.femto.mvi.BaseModel
 import cc.femto.mvi.Event
@@ -16,7 +17,8 @@ import javax.inject.Inject
 
 @ActivityScope
 class RepositoriesModel @Inject constructor(
-    private val searchApi: SearchApi
+    private val searchApi: SearchApi,
+    private val navigator: Navigator
 ) : BaseModel<RepositoriesAction, RepositoriesState>() {
 
     override fun attach(actions: Observable<RepositoriesAction>) {
@@ -63,10 +65,8 @@ class RepositoriesModel @Inject constructor(
     }
 
     override fun makeSideEffects(actions: Observable<RepositoriesAction>): CompositeDisposable {
-        val openRepositoryDetails = events().ofType<RepositoriesAction.TapOnRepository>()
-            .subscribe {
-                TODO("open repository details")
-            }
+        val openRepositoryDetails = actions.ofType<RepositoriesAction.TapOnRepository>()
+            .subscribe { navigator.navigateToUrl(it.repository.html_url) }
 
         return CompositeDisposable(
             openRepositoryDetails
