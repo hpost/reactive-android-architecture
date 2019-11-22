@@ -49,7 +49,8 @@ class RepositoriesModel @Inject constructor(
         )
         is SearchRepositoriesEvent.InProgress -> state.copy(
             isLoading = true,
-            isError = false
+            isError = false,
+            error = null
         )
         is SearchRepositoriesEvent.Success -> state.copy(
             isLoading = false,
