@@ -4,6 +4,8 @@ dependencies {
     implementation "com.google.dagger:dagger:${versions.dagger}"
     compileOnly 'javax.annotation:jsr250-api:1.0'
 
+    implementation 'androidx.core:core-ktx:1.1.0'
+
     implementation 'com.google.code.gson:gson:2.8.5'
 
     implementation "io.reactivex.rxjava2:rxjava:${versions.rxjava}"

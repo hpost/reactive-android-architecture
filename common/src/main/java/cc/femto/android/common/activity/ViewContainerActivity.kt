@@ -1,10 +1,10 @@
 package cc.femto.android.common.activity
 
-import android.app.Activity
 import android.app.Instrumentation
 import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
+import androidx.core.app.ComponentActivity
 import cc.femto.kommon.extensions.hideKeyboard
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
@@ -13,7 +13,7 @@ import io.reactivex.subjects.PublishSubject
 /**
  * Activity that wraps and delegates functionality to a hosted custom view
  */
-abstract class ViewContainerActivity : Activity() {
+abstract class ViewContainerActivity : ComponentActivity() {
 
     private val intentSubject: BehaviorSubject<Intent> = BehaviorSubject.create()
     private val activityResultSubjects: MutableMap<Int, PublishSubject<Instrumentation.ActivityResult>> = mutableMapOf()
