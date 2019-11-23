@@ -78,7 +78,7 @@ class RepositoriesLayout(context: Context, attrs: AttributeSet) : ConstraintLayo
 
         val repositories = state.mapDistinct { repositories }
             .subscribe {
-                repositoriesSection.update(RepositoryItem.from(it) { repository ->
+                repositoriesSection.update(RepositoryItem.from(picasso, it) { repository ->
                     actions.onNext(
                         RepositoriesAction.TapOnRepository(
                             repository
