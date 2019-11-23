@@ -4,16 +4,20 @@ import android.app.Activity
 import cc.femto.architecture.reactive.components.home.HomeModel
 import cc.femto.architecture.reactive.components.home.repositories.RepositoriesModel
 import cc.femto.architecture.reactive.di.ActivityScope
+import cc.femto.architecture.reactive.di.AppComponent
 import dagger.BindsInstance
-import dagger.Subcomponent
+import dagger.Component
 
 @ActivityScope
-@Subcomponent
+@Component(dependencies = [AppComponent::class])
 interface HomeComponent {
 
-    @Subcomponent.Factory
+    @Component.Factory
     interface Factory {
-        fun create(@BindsInstance activity: Activity): HomeComponent
+        fun create(
+            appComponent: AppComponent,
+            @BindsInstance activity: Activity
+        ): HomeComponent
     }
 
     fun homeModel(): HomeModel
