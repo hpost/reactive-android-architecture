@@ -5,13 +5,12 @@ import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import cc.femto.architecture.reactive.R
-import cc.femto.architecture.reactive.components.home.HomeActivity
+import cc.femto.architecture.reactive.appComponent
 import cc.femto.architecture.reactive.components.home.repositories.adapter.RepositoryItem
 import cc.femto.kommon.extensions.string
 import cc.femto.mvi.BaseView
 import cc.femto.rx.extensions.mapDistinct
 import com.jakewharton.rxbinding3.view.clicks
-import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
@@ -23,13 +22,11 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.include_error_view.view.*
 import kotlinx.android.synthetic.main.repositories_layout.view.*
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 class RepositoriesLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs),
     BaseView<RepositoriesAction, RepositoriesState> {
 
-    @Inject
-    lateinit var picasso: Picasso
+    private val picasso by lazy { appComponent().picasso() }
 
     override val disposables = CompositeDisposable()
     override val actions = PublishSubject.create<RepositoriesAction>()
@@ -39,8 +36,6 @@ class RepositoriesLayout(context: Context, attrs: AttributeSet) : ConstraintLayo
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        if (isInEditMode) return
-        (context as HomeActivity).homeComponent.inject(this)
         setupLayout()
         makeActions()
     }

@@ -14,13 +14,13 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.plugins.RxJavaPlugins
 import timber.log.Timber
 
-class App : Application() {
+open class App : Application() {
 
     val appComponent: AppComponent by lazy {
         initializeComponent()
     }
 
-    private fun initializeComponent() = DaggerAppComponent.factory()
+    protected open fun initializeComponent() = DaggerAppComponent.factory()
         .create(
             context = applicationContext,
             buildType = when {

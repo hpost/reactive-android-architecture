@@ -20,13 +20,14 @@ import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.home_layout.view.*
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs),
     BaseView<HomeAction, HomeState> {
 
-    @Inject
-    lateinit var repositoriesModel: RepositoriesModel
+    private val repositoriesModel by lazy {
+        (context as HomeActivity).homeComponent
+            .repositoriesModel()
+    }
 
     override val disposables = CompositeDisposable()
     override val actions = PublishSubject.create<HomeAction>()
@@ -48,8 +49,6 @@ class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        if (isInEditMode) return
-        (context as HomeActivity).homeComponent.inject(this)
         makeActions()
     }
 
