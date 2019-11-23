@@ -25,6 +25,7 @@
                 android:background="@color/transparent"
                 android:drawableStart="@drawable/ic_search_black_24dp"
                 android:drawablePadding="16dp"
+                android:drawableTint="@color/textPrimaryInverse"
                 android:gravity="center_vertical"
                 android:hint="@string/home_search_hint"
                 android:importantForAutofill="no"
@@ -34,8 +35,7 @@
                 android:paddingStart="0dp"
                 android:paddingEnd="48dp"
                 android:textColor="@color/textPrimaryInverse"
-                android:textColorHint="@color/textPrimaryInverse"
-                app:drawableTint="@color/textPrimaryInverse" />
+                android:textColorHint="@color/textPrimaryInverse" />
 
             <ProgressBar
                 android:id="@+id/progress_bar"
