@@ -1,6 +1,5 @@
 package cc.femto.architecture.reactive.data
 
-import android.content.SharedPreferences
 import cc.femto.android.common.util.gson.genericType
 import cc.femto.android.common.util.rxpreferences.GsonOptionalPreferenceConverter
 import cc.femto.mvi.Event
@@ -16,17 +15,15 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class Session @Inject constructor(sharedPreferences: SharedPreferences, gson: Gson) {
+class Session @Inject constructor(rxPreferences: RxSharedPreferences, gson: Gson) {
 
     private val query: Preference<Optional<String>>
 
     init {
-        val rxPreferences = RxSharedPreferences.create(sharedPreferences)
-        val stringConverter =
-            GsonOptionalPreferenceConverter<String, Optional<String>>(
-                gson,
-                genericType<String>()
-            )
+        val stringConverter = GsonOptionalPreferenceConverter<String, Optional<String>>(
+            gson,
+            genericType<String>()
+        )
 
         query = rxPreferences.getObject("query", None, stringConverter)
     }
