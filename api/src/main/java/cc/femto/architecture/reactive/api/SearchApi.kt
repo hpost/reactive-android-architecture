@@ -5,7 +5,7 @@ import cc.femto.architecture.reactive.api.model.SearchOrder
 import cc.femto.architecture.reactive.api.model.SearchRepositoriesResponse
 import cc.femto.architecture.reactive.api.model.SearchSort
 import cc.femto.kommon.extensions.isSuccess
-import cc.femto.kommon.extensions.retryAfterErrorResult
+import cc.femto.kommon.extensions.retryOnNetworkError
 import cc.femto.mvi.Event
 import io.reactivex.Observable
 import retrofit2.adapter.rxjava2.Result
@@ -34,7 +34,7 @@ class SearchApi @Inject constructor(
         order: SearchOrder = SearchOrder.DESC
     ): Observable<SearchRepositoriesEvent> =
         service.searchRepositories(query, sort, order)
-            .retryAfterErrorResult()
+            .retryOnNetworkError()
             .map {
                 when {
                     it.isSuccess -> SearchRepositoriesEvent.Success(

@@ -8,7 +8,7 @@ import cc.femto.architecture.reactive.data.BuildType
 import cc.femto.architecture.reactive.di.AppComponent
 import cc.femto.architecture.reactive.di.DaggerAppComponent
 import cc.femto.kommon.Kommon
-import cc.femto.kommon.extensions.e
+import cc.femto.kommon.extensions.error
 import com.jakewharton.threetenabp.AndroidThreeTen
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.plugins.RxJavaPlugins
@@ -35,7 +35,7 @@ open class App : Application() {
 
     init {
         RxJavaPlugins.setErrorHandler { throwable ->
-            e("Unhandled error in stream: ${throwable.cause}", throwable)
+            error("Unhandled error in stream: ${throwable.cause}", throwable)
             if (BuildConfig.DEBUG) {
                 throw RuntimeException("Unhandled error in stream", throwable)
             }
