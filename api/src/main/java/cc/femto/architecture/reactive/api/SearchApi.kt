@@ -36,10 +36,8 @@ class SearchApi @Inject constructor(
         service.searchRepositories(query, sort, order)
             .retryOnNetworkError()
             .map {
-                when {
-                    it.isSuccess -> SearchRepositoriesEvent.Success(
-                        it.response()?.body()?.items.orEmpty()
-                    )
+                when (it.isSuccess) {
+                    true -> SearchRepositoriesEvent.Success(it.response()?.body()?.items.orEmpty())
                     else -> SearchRepositoriesEvent.Error(it.error())
                 }
             }
