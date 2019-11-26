@@ -7,7 +7,11 @@ import com.f2prateek.rx.preferences2.Preference
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.gojuno.koptional.Optional
 import com.gojuno.koptional.toOptional
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.eq
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import io.reactivex.observers.TestObserver
 import io.reactivex.subjects.PublishSubject
 import org.spekframework.spek2.Spek

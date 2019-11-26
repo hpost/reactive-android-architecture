@@ -10,7 +10,11 @@ import cc.femto.architecture.reactive.components.home.repositories.RepositoriesM
 import cc.femto.architecture.reactive.components.home.repositories.RepositoriesState
 import cc.femto.architecture.reactive.navigation.Navigator
 import cc.femto.spek.extras.rxGroup
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.any
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Observable
 import io.reactivex.observers.TestObserver
 import io.reactivex.subjects.PublishSubject

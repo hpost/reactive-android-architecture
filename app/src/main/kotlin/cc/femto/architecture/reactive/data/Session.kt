@@ -20,10 +20,7 @@ class Session @Inject constructor(rxPreferences: RxSharedPreferences, gson: Gson
     private val query: Preference<Optional<String>>
 
     init {
-        val stringConverter = GsonOptionalPreferenceConverter<String, Optional<String>>(
-            gson,
-            genericType<String>()
-        )
+        val stringConverter = GsonOptionalPreferenceConverter<String, Optional<String>>(gson, genericType<String>())
 
         query = rxPreferences.getObject("query", None, stringConverter)
     }
