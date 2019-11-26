@@ -1,27 +1,19 @@
 package cc.femto.architecture.reactive.components.home
 
+import cc.femto.android.common.mvi.LoggingModel
 import cc.femto.architecture.reactive.data.Session
 import cc.femto.architecture.reactive.data.SessionEvent
 import cc.femto.architecture.reactive.di.ActivityScope
-import cc.femto.kommon.extensions.v
-import cc.femto.mvi.BaseModel
 import cc.femto.mvi.Event
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.ofType
-import io.reactivex.rxkotlin.plusAssign
 import javax.inject.Inject
 
 @ActivityScope
 class HomeModel @Inject constructor(
     private val session: Session
-) : BaseModel<HomeAction, HomeState>() {
-
-    override fun attach(actions: Observable<HomeAction>) {
-        super.attach(actions)
-        disposables += actions.subscribe { v("action: $it") }
-        disposables += events().subscribe { v("event: $it") }
-    }
+) : LoggingModel<HomeAction, HomeState>() {
 
     override fun initialState() = HomeState()
 

@@ -1,31 +1,23 @@
 package cc.femto.architecture.reactive.components.home.repositories
 
+import cc.femto.android.common.mvi.LoggingModel
 import cc.femto.architecture.reactive.api.SearchApi
 import cc.femto.architecture.reactive.api.SearchRepositoriesEvent
 import cc.femto.architecture.reactive.api.model.SearchSort
 import cc.femto.architecture.reactive.di.ActivityScope
 import cc.femto.architecture.reactive.navigation.Navigator
-import cc.femto.kommon.extensions.v
-import cc.femto.mvi.BaseModel
 import cc.femto.mvi.Event
 import cc.femto.rx.extensions.mapOnce
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.ofType
-import io.reactivex.rxkotlin.plusAssign
 import javax.inject.Inject
 
 @ActivityScope
 class RepositoriesModel @Inject constructor(
     private val searchApi: SearchApi,
     private val navigator: Navigator
-) : BaseModel<RepositoriesAction, RepositoriesState>() {
-
-    override fun attach(actions: Observable<RepositoriesAction>) {
-        super.attach(actions)
-        disposables += actions.subscribe { v("action: $it") }
-        disposables += events().subscribe { v("event: $it") }
-    }
+) : LoggingModel<RepositoriesAction, RepositoriesState>() {
 
     override fun initialState() = RepositoriesState()
 
