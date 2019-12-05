@@ -46,7 +46,6 @@ dependencies {
 
     implementation 'com.google.android.material:material:1.2.0-alpha02'
     implementation 'androidx.preference:preference:1.1.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0-rc01'
     implementation 'androidx.viewpager:viewpager:1.0.0'
@@ -54,7 +53,7 @@ dependencies {
 
     implementation "org.jetbrains.anko:anko-commons:0.10.8"
 
-    implementation "com.jakewharton.rxbinding3:rxbinding:${versions.rxbinding}"
+    implementation "com.jakewharton.rxbinding3:rxbinding-appcompat:${versions.rxbinding}"
     implementation "com.jakewharton.rxbinding3:rxbinding-core:${versions.rxbinding}"
     implementation "com.jakewharton.rxbinding3:rxbinding-recyclerview:${versions.rxbinding}"
     implementation "com.jakewharton.rxbinding3:rxbinding-material:${versions.rxbinding}"
