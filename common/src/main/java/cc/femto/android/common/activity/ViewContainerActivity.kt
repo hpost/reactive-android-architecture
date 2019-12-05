@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.ViewGroup
 import androidx.core.app.ComponentActivity
 import cc.femto.kommon.extensions.hideKeyboard
+import com.gojuno.koptional.None
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
@@ -16,6 +17,7 @@ import io.reactivex.subjects.PublishSubject
 abstract class ViewContainerActivity : ComponentActivity() {
 
     private val intentSubject: BehaviorSubject<Intent> = BehaviorSubject.create()
+    private val backPressedSubject: PublishSubject<None> = PublishSubject.create()
     private val activityResultSubjects: MutableMap<Int, PublishSubject<Instrumentation.ActivityResult>> = mutableMapOf()
 
     protected var contentView: ViewGroup? = null
@@ -32,6 +34,11 @@ abstract class ViewContainerActivity : ComponentActivity() {
      * Emits the latest [Intent] that was captured during [onCreate] or [onNewIntent]
      */
     fun intentObservable(): Observable<Intent> = intentSubject
+
+    /**
+     * Emits events when the back button is pressed
+     */
+    fun backPresses(): Observable<None> = backPressedSubject
 
     /**
      * Wrapper for [startActivityForResult] which returns an [Observable] that will emit the result
@@ -74,11 +81,12 @@ abstract class ViewContainerActivity : ComponentActivity() {
     }
 
     override fun onBackPressed() {
+        backPressedSubject.onNext(None)
         var consumed = false
         if (contentView is OnBackPressedListener) {
             consumed = (contentView as OnBackPressedListener).onBackPressed()
         }
-        if (!consumed) {
+        if (!consumed && !backPressedSubject.hasObservers()) {
             super.onBackPressed()
         }
     }

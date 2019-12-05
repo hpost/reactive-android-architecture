@@ -23,7 +23,7 @@ class Navigator @Inject constructor(private val activity: Activity) {
             Intent().apply {
                 putExtra(RESULT_DATA, data)
             })
-        activity.finish()
+        activity.finishAfterTransition()
     }
 
     fun navigateToUrl(url: String) {
