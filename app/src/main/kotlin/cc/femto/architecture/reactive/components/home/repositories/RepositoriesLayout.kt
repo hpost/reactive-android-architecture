@@ -7,26 +7,26 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import cc.femto.architecture.reactive.R
 import cc.femto.architecture.reactive.appComponent
 import cc.femto.architecture.reactive.components.home.repositories.adapter.RepositoryItem
+import cc.femto.architecture.reactive.databinding.RepositoriesLayoutBinding
 import cc.femto.kommon.extensions.string
 import cc.femto.mvi.BaseView
 import cc.femto.rx.extensions.mapDistinct
 import com.jakewharton.rxbinding3.view.clicks
 import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Section
-import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.include_error_view.view.*
-import kotlinx.android.synthetic.main.repositories_layout.view.*
 import java.util.concurrent.TimeUnit
 
 class RepositoriesLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs),
     BaseView<RepositoriesAction, RepositoriesState> {
 
     private val picasso by lazy { appComponent().picasso() }
+    private val binding by lazy { RepositoriesLayoutBinding.bind(this) }
 
     override val disposables = CompositeDisposable()
     override val actions = PublishSubject.create<RepositoriesAction>()
@@ -47,7 +47,7 @@ class RepositoriesLayout(context: Context, attrs: AttributeSet) : ConstraintLayo
 
     private fun setupLayout() {
         repositoriesAdapter.add(repositoriesSection)
-        content_view.apply {
+        binding.contentView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             adapter = repositoriesAdapter
@@ -55,7 +55,7 @@ class RepositoriesLayout(context: Context, attrs: AttributeSet) : ConstraintLayo
     }
 
     private fun makeActions() {
-        val retry = retry_button.clicks()
+        val retry = binding.errorView.retryButton.clicks()
             .throttleFirst(500, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
             .map { RepositoriesAction.RetrySearch }
 
@@ -67,12 +67,12 @@ class RepositoriesLayout(context: Context, attrs: AttributeSet) : ConstraintLayo
     override fun render(state: Observable<RepositoriesState>): CompositeDisposable {
         val error = state.mapDistinct { isError to error }
             .subscribe { (isError, error) ->
-                view_animator.displayedChildId = when {
+                binding.viewAnimator.displayedChildId = when {
                     isError -> R.id.error_view
                     else -> R.id.content_view
                 }
                 if (isError) {
-                    error_message.text = error?.message ?: string(R.string.default_error_message)
+                    binding.errorView.errorMessage.text = error?.message ?: string(R.string.default_error_message)
                 }
             }
 

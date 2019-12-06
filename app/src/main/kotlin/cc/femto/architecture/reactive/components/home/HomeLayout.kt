@@ -6,6 +6,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import cc.femto.architecture.reactive.components.home.repositories.RepositoriesLayout
 import cc.femto.architecture.reactive.components.home.repositories.RepositoriesModel
 import cc.femto.architecture.reactive.components.home.repositories.RepositoriesState
+import cc.femto.architecture.reactive.databinding.HomeLayoutBinding
 import cc.femto.kommon.extensions.invisible
 import cc.femto.kommon.extensions.visible
 import cc.femto.mvi.BaseView
@@ -18,7 +19,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.home_layout.view.*
 import java.util.concurrent.TimeUnit
 
 class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs),
@@ -28,7 +28,7 @@ class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
         (context as HomeActivity).homeComponent
             .repositoriesModel()
     }
-
+    private val binding by lazy { HomeLayoutBinding.bind(this) }
     override val disposables = CompositeDisposable()
     override val actions = PublishSubject.create<HomeAction>()
 
@@ -36,7 +36,7 @@ class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
         super.attach(state)
 
         attachComponent(
-            repositories as RepositoriesLayout,
+            binding.repositories.root as RepositoriesLayout,
             repositoriesModel
         ) {
             disposables += renderRepositoriesState(
@@ -58,12 +58,12 @@ class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
     }
 
     private fun makeActions() {
-        val queryInput = query_edit_text.textChanges()
+        val queryInput = binding.queryEditText.textChanges()
             .skipInitialValue()
             .debounce(300, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
             .map { HomeAction.QueryInput(it.toString()) }
 
-        val clearQueryClicks = clear_query_button.clicks()
+        val clearQueryClicks = binding.clearQueryButton.clicks()
             .throttleFirst(500, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
             .map { HomeAction.ClearQuery }
 
@@ -76,8 +76,8 @@ class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
     override fun render(state: Observable<HomeState>): CompositeDisposable {
         val query = state.map { it.query }
             .distinctUntilChanged()
-            .filter { it != query_edit_text.text.toString() }
-            .subscribe { query_edit_text.setText(it) }
+            .filter { it != binding.queryEditText.text.toString() }
+            .subscribe { binding.queryEditText.setText(it) }
 
         return CompositeDisposable(
             query
@@ -89,12 +89,12 @@ class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
             .subscribe { isLoading ->
                 when (isLoading) {
                     true -> {
-                        progress_bar.visible()
-                        clear_query_button.invisible()
+                        binding.progressBar.visible()
+                        binding.clearQueryButton.invisible()
                     }
                     else -> {
-                        progress_bar.invisible()
-                        clear_query_button.visible()
+                        binding.progressBar.invisible()
+                        binding.clearQueryButton.visible()
                     }
                 }
             }

@@ -20,7 +20,9 @@
             android:paddingBottom="8dp"
             tools:listitem="@layout/repository_row" />
 
-        <include layout="@layout/include_error_view" />
+        <include
+            android:id="@+id/error_view"
+            layout="@layout/include_error_view" />
 
     </cc.femto.android.common.widget.IdViewAnimator>
 </cc.femto.architecture.reactive.components.home.repositories.RepositoriesLayout>
