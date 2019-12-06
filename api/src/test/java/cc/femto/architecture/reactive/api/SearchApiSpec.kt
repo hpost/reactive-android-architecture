@@ -32,8 +32,8 @@ class SearchApiSpec : Spek({
     val order = SearchOrder.DESC
 
     val repositories = listOf(
-        Repository(name = "repository-1", html_url = "url/1", stargazers_count = 42),
-        Repository(name = "repository-2", html_url = "url/2", stargazers_count = 1)
+        Repository(name = "repository-1", htmlUrl = "url/1", stargazersCount = 42),
+        Repository(name = "repository-2", htmlUrl = "url/2", stargazersCount = 1)
     )
     val successResponse = Response.success(
         SearchRepositoriesResponse(repositories.size, repositories)

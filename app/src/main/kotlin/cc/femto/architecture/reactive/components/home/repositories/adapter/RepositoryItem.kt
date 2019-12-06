@@ -22,12 +22,12 @@ class RepositoryItem(
 
     override fun bind(viewHolder: RepositoryViewHolder, position: Int) {
         with(repository) {
-            picasso.load(owner.avatar_url)
+            picasso.load(owner.avatarUrl)
                 .fit().centerCrop()
                 .into(viewHolder.binding.avatar)
             viewHolder.binding.title.text = name
             viewHolder.binding.owner.text = owner.login
-            viewHolder.binding.stargazers.text = stargazers_count.toString()
+            viewHolder.binding.stargazers.text = stargazersCount.toString()
         }
         viewHolder.root.setOnClickListener { onClickListener(repository) }
     }

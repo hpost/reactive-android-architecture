@@ -32,8 +32,8 @@ class RepositoriesModelSpec : Spek({
     lateinit var observer: TestObserver<RepositoriesState>
 
     val repositories = listOf(
-        Repository(name = "repository-1", html_url = "url/1", stargazers_count = 42),
-        Repository(name = "repository-2", html_url = "url/2", stargazers_count = 1)
+        Repository(name = "repository-1", htmlUrl = "url/1", stargazersCount = 42),
+        Repository(name = "repository-2", htmlUrl = "url/2", stargazersCount = 1)
     )
     val searchSuccess = Observable.just(
         SearchRepositoriesEvent.InProgress,
@@ -127,7 +127,7 @@ class RepositoriesModelSpec : Spek({
                 actions.onNext(RepositoriesAction.TapOnRepository(repository))
             }
             it("navigates to URL") {
-                verify(navigator).navigateToUrl(repository.html_url)
+                verify(navigator).navigateToUrl(repository.htmlUrl)
             }
         }
     }

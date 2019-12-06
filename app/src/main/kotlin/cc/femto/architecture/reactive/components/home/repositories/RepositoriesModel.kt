@@ -59,7 +59,7 @@ class RepositoriesModel @Inject constructor(
 
     override fun makeSideEffects(actions: Observable<RepositoriesAction>): CompositeDisposable {
         val openRepositoryDetails = actions.ofType<RepositoriesAction.TapOnRepository>()
-            .subscribe { navigator.navigateToUrl(it.repository.html_url) }
+            .subscribe { navigator.navigateToUrl(it.repository.htmlUrl) }
 
         return CompositeDisposable(
             openRepositoryDetails

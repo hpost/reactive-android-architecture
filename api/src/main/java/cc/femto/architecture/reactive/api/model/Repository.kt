@@ -1,11 +1,13 @@
 package cc.femto.architecture.reactive.api.model
 
+import com.google.gson.annotations.SerializedName
+
 data class Repository(
     val id: Int = -1,
     val name: String = "",
-    val full_name: String = "",
+    @SerializedName("full_name") val fullName: String = "",
     val owner: Owner = Owner(),
     val description: String = "",
-    val html_url: String = "",
-    val stargazers_count: Int = 0
+    @SerializedName("html_url") val htmlUrl: String = "",
+    @SerializedName("stargazers_count") val stargazersCount: Int = 0
 )
