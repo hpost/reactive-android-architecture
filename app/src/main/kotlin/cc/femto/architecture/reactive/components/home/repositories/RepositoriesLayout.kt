@@ -37,6 +37,10 @@ class RepositoriesLayout(context: Context, attrs: AttributeSet) : ConstraintLayo
     override fun onFinishInflate() {
         super.onFinishInflate()
         setupLayout()
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
         makeActions()
     }
 

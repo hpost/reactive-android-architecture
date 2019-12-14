@@ -47,8 +47,8 @@ class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
         }
     }
 
-    override fun onFinishInflate() {
-        super.onFinishInflate()
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
         makeActions()
     }
 
