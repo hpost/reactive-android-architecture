@@ -7,8 +7,7 @@ import cc.femto.architecture.reactive.components.home.repositories.RepositoriesL
 import cc.femto.architecture.reactive.components.home.repositories.RepositoriesModel
 import cc.femto.architecture.reactive.components.home.repositories.RepositoriesState
 import cc.femto.architecture.reactive.databinding.HomeLayoutBinding
-import cc.femto.kommon.extensions.invisible
-import cc.femto.kommon.extensions.visible
+import cc.femto.kommon.extensions.visibleOrInvisible
 import cc.femto.mvi.BaseView
 import cc.femto.mvi.attachComponent
 import cc.femto.mvi.detachComponent
@@ -87,16 +86,8 @@ class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
     private fun renderRepositoriesState(state: Observable<RepositoriesState>): CompositeDisposable {
         val loading = state.mapDistinct { isLoading }
             .subscribe { isLoading ->
-                when (isLoading) {
-                    true -> {
-                        binding.progressBar.visible()
-                        binding.clearQueryButton.invisible()
-                    }
-                    else -> {
-                        binding.progressBar.invisible()
-                        binding.clearQueryButton.visible()
-                    }
-                }
+                binding.progressBar.visibleOrInvisible(isLoading)
+                binding.clearQueryButton.visibleOrInvisible(!isLoading)
             }
 
         return CompositeDisposable(
