@@ -11,6 +11,7 @@ import cc.femto.kommon.extensions.invisible
 import cc.femto.kommon.extensions.visible
 import cc.femto.mvi.BaseView
 import cc.femto.mvi.attachComponent
+import cc.femto.mvi.detachComponent
 import cc.femto.rx.extensions.mapDistinct
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
@@ -24,27 +25,26 @@ import java.util.concurrent.TimeUnit
 class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(context, attrs),
     BaseView<HomeAction, HomeState> {
 
-    private val repositoriesModel by lazy {
-        (context as HomeActivity).homeComponent
-            .repositoriesModel()
-    }
+    private val repositoriesModel by lazy { (context as HomeActivity).homeComponent.repositoriesModel() }
+    private val repositoriesLayout by lazy { binding.repositories.root as RepositoriesLayout }
     private val binding by lazy { HomeLayoutBinding.bind(this) }
     override val disposables = CompositeDisposable()
     override val actions = PublishSubject.create<HomeAction>()
 
     override fun attach(state: Observable<HomeState>) {
         super.attach(state)
-
-        attachComponent(
-            binding.repositories.root as RepositoriesLayout,
-            repositoriesModel
-        ) {
+        attachComponent(repositoriesLayout, repositoriesModel) {
             disposables += renderRepositoriesState(
                 repositoriesModel.state().observeOn(AndroidSchedulers.mainThread())
             )
             disposables += state.mapDistinct { query }
                 .subscribe { repositoriesModel.dispatchEvent(RepositoriesModel.InitEvent(it)) }
         }
+    }
+
+    override fun detach() {
+        super.detach()
+        detachComponent(repositoriesLayout, repositoriesModel)
     }
 
     override fun onAttachedToWindow() {
