@@ -9,6 +9,7 @@ import cc.femto.spek.extras.rxGroup
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Observable
 import io.reactivex.observers.TestObserver
@@ -59,6 +60,9 @@ class SearchApiSpec : Spek({
             context("success") {
                 beforeEachTest {
                     observer = searchApi.searchRepositories(query, sort, order).test()
+                }
+                it("calls service") {
+                    verify(service).searchRepositories(query, sort, order)
                 }
                 it("emits correct events") {
                     observer.assertValues(
