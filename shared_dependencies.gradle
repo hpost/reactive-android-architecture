@@ -30,7 +30,7 @@ dependencies {
     implementation "com.jakewharton.rxbinding3:rxbinding:${versions.rxbinding}"
 
     implementation 'cc.femto:rx-mvi:4.2.0'
-    implementation 'cc.femto:rx-mapping-extensions:0.3'
+    implementation 'cc.femto:rx-mapping-extensions:0.4'
     implementation 'cc.femto:kotlin-extensions:0.2'
     implementation 'cc.femto:kommon-extensions:2.2.0'
 
