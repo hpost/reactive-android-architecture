@@ -1,4 +1,4 @@
-package cc.femto.architecture.reactive.components.home.repositories.adapter
+package cc.femto.architecture.reactive.components.home.repositories
 
 import android.view.View
 import cc.femto.architecture.reactive.R

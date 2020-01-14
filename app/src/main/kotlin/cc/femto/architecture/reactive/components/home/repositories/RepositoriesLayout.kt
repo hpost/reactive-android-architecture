@@ -6,7 +6,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import cc.femto.architecture.reactive.R
 import cc.femto.architecture.reactive.appComponent
-import cc.femto.architecture.reactive.components.home.repositories.adapter.RepositoryItem
 import cc.femto.architecture.reactive.databinding.RepositoriesLayoutBinding
 import cc.femto.kommon.extensions.string
 import cc.femto.mvi.BaseView
