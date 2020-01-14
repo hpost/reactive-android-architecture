@@ -18,6 +18,7 @@ abstract class ViewContainerActivity : ComponentActivity() {
 
     private val intentSubject: BehaviorSubject<Intent> = BehaviorSubject.create()
     private val backPressedSubject: PublishSubject<None> = PublishSubject.create()
+    private val isResumedSubject: BehaviorSubject<Boolean> = BehaviorSubject.create()
     private val activityResultSubjects: MutableMap<Int, PublishSubject<Instrumentation.ActivityResult>> = mutableMapOf()
 
     protected var contentView: ViewGroup? = null
@@ -39,6 +40,11 @@ abstract class ViewContainerActivity : ComponentActivity() {
      * Emits events when the back button is pressed
      */
     fun backPresses(): Observable<None> = backPressedSubject
+
+    /**
+     * Emits events when the [Activity] pauses and resumes
+     */
+    fun isResumed(): Observable<Boolean> = isResumedSubject
 
     /**
      * Wrapper for [startActivityForResult] which returns an [Observable] that will emit the result
@@ -68,11 +74,17 @@ abstract class ViewContainerActivity : ComponentActivity() {
 
     override fun onPause() {
         super.onPause()
+        isResumedSubject.onNext(false)
         try {
             hideKeyboard()
         } catch (t: Throwable) {
             /* no-op */
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isResumedSubject.onNext(true)
     }
 
     override fun onNewIntent(intent: Intent) {
