@@ -51,11 +51,6 @@ class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
         makeActions()
     }
 
-    override fun onDetachedFromWindow() {
-        detach()
-        super.onDetachedFromWindow()
-    }
-
     private fun makeActions() {
         val queryInput = binding.queryEditText.textChanges()
             .skipInitialValue()

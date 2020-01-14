@@ -2,15 +2,15 @@ package cc.femto.android.common.activity
 
 import android.os.Bundle
 import cc.femto.mvi.Action
+import cc.femto.mvi.BaseView
 import cc.femto.mvi.Model
-import cc.femto.mvi.View
 import cc.femto.mvi.attachComponent
 
 abstract class ModelViewIntentActivity<ACTION : Action, STATE> : ViewContainerActivity() {
 
     @Suppress("UNCHECKED_CAST")
-    protected fun view(): View<ACTION, STATE> =
-        contentView as? View<ACTION, STATE>
+    protected fun view(): BaseView<ACTION, STATE> =
+        contentView as? BaseView<ACTION, STATE>
             ?: throw AssertionError("contentView must implement View<ACTION, STATE> interface")
 
     abstract fun model(): Model<ACTION, STATE>
@@ -26,6 +26,7 @@ abstract class ModelViewIntentActivity<ACTION : Action, STATE> : ViewContainerAc
     }
 
     override fun onDestroy() {
+        view().detach()
         model().detach()
         super.onDestroy()
     }
