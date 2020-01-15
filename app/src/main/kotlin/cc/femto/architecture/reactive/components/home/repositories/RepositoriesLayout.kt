@@ -68,27 +68,25 @@ class RepositoriesLayout(context: Context, attrs: AttributeSet) : ConstraintLayo
     }
 
     override fun render(state: Observable<RepositoriesState>): CompositeDisposable {
-        val error = state.mapDistinct { isError to error }
-            .subscribe { (isError, error) ->
-                binding.viewAnimator.displayedChildId = when {
-                    isError -> R.id.error_view
-                    else -> R.id.content_view
-                }
-                if (isError) {
-                    binding.errorView.errorMessage.text = error?.message ?: string(R.string.default_error_message)
-                }
+        val error = state.mapDistinct { isError to error }.subscribe { (isError, error) ->
+            binding.viewAnimator.displayedChildId = when {
+                isError -> R.id.error_view
+                else -> R.id.content_view
             }
+            if (isError) {
+                binding.errorView.errorMessage.text = error?.message ?: string(R.string.default_error_message)
+            }
+        }
 
-        val repositories = state.mapDistinct { repositories }
-            .subscribe {
-                repositoriesSection.update(RepositoryItem.from(picasso, it) { repository ->
-                    actions.onNext(
-                        RepositoriesAction.TapOnRepository(
-                            repository
-                        )
+        val repositories = state.mapDistinct { repositories }.subscribe {
+            repositoriesSection.update(RepositoryItem.from(picasso, it) { repository ->
+                actions.onNext(
+                    RepositoriesAction.TapOnRepository(
+                        repository
                     )
-                })
-            }
+                )
+            })
+        }
 
         return CompositeDisposable(
             error,

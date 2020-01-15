@@ -68,10 +68,10 @@ class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
     }
 
     override fun render(state: Observable<HomeState>): CompositeDisposable {
-        val query = state.map { it.query }
-            .distinctUntilChanged()
-            .filter { it != binding.queryEditText.text.toString() }
-            .subscribe { binding.queryEditText.setText(it) }
+        val query = state.mapDistinct { query }
+            .filter { it != binding.queryEditText.text.toString() }.subscribe {
+                binding.queryEditText.setText(it)
+            }
 
         return CompositeDisposable(
             query
@@ -79,11 +79,10 @@ class HomeLayout(context: Context, attrs: AttributeSet) : ConstraintLayout(conte
     }
 
     private fun renderRepositoriesState(state: Observable<RepositoriesState>): CompositeDisposable {
-        val loading = state.mapDistinct { isLoading }
-            .subscribe { isLoading ->
-                binding.progressBar.visibleOrInvisible(isLoading)
-                binding.clearQueryButton.visibleOrInvisible(!isLoading)
-            }
+        val loading = state.mapDistinct { isLoading }.subscribe { isLoading ->
+            binding.progressBar.visibleOrInvisible(isLoading)
+            binding.clearQueryButton.visibleOrInvisible(!isLoading)
+        }
 
         return CompositeDisposable(
             loading
