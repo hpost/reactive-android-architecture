@@ -1,6 +1,7 @@
 package cc.femto.android.common.mvi
 
 import cc.femto.kommon.extensions.debug
+import cc.femto.kommon.extensions.verbose
 import cc.femto.mvi.Action
 import cc.femto.mvi.BaseModel
 import io.reactivex.Observable
@@ -12,5 +13,6 @@ abstract class LoggingModel<ACTION : Action, STATE> : BaseModel<ACTION, STATE>()
         super.attach(actions)
         disposables += actions.subscribe { debug("action: $it") }
         disposables += events().subscribe { debug("event: $it") }
+        disposables += state().subscribe { verbose("state: $it") }
     }
 }
