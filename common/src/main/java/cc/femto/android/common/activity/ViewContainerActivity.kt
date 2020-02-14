@@ -10,6 +10,8 @@ import com.gojuno.koptional.None
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
+import java.util.*
+import kotlin.math.absoluteValue
 
 /**
  * Activity that wraps and delegates functionality to a hosted custom view
@@ -51,13 +53,13 @@ abstract class ViewContainerActivity : ComponentActivity() {
      */
     fun startActivityForResultObservable(
         intent: Intent,
-        requestCode: Int,
+        requestCode: Int = UUID.randomUUID().hashCode().absoluteValue,
         options: Bundle? = null
     ): Observable<Instrumentation.ActivityResult> {
         val subject: PublishSubject<Instrumentation.ActivityResult> = PublishSubject.create()
         activityResultSubjects[requestCode] = subject
         startActivityForResult(intent, requestCode, options)
-        return subject
+        return subject.take(1)
     }
 
     /**
@@ -106,6 +108,7 @@ abstract class ViewContainerActivity : ComponentActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         activityResultSubjects[requestCode]?.onNext(Instrumentation.ActivityResult(resultCode, data))
+        activityResultSubjects.remove(requestCode)
     }
 
     interface OnBackPressedListener {
