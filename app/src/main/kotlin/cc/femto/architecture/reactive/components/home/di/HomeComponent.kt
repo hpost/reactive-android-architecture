@@ -1,6 +1,6 @@
 package cc.femto.architecture.reactive.components.home.di
 
-import android.app.Activity
+import cc.femto.android.common.activity.ViewContainerActivity
 import cc.femto.architecture.reactive.components.home.HomeModel
 import cc.femto.architecture.reactive.components.home.repositories.RepositoriesModel
 import cc.femto.architecture.reactive.di.ActivityScope
@@ -16,7 +16,7 @@ interface HomeComponent {
     interface Factory {
         fun create(
             appComponent: AppComponent,
-            @BindsInstance activity: Activity
+            @BindsInstance activity: ViewContainerActivity
         ): HomeComponent
     }
 

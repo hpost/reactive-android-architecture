@@ -2,13 +2,14 @@ package cc.femto.architecture.reactive.navigation
 
 import android.app.Activity
 import android.content.Intent
+import cc.femto.android.common.activity.ViewContainerActivity
 import cc.femto.architecture.reactive.di.ActivityScope
 import org.jetbrains.anko.browse
 import java.io.Serializable
 import javax.inject.Inject
 
 @ActivityScope
-class Navigator @Inject constructor(private val activity: Activity) {
+class Navigator @Inject constructor(private val activity: ViewContainerActivity) {
 
     companion object {
         const val RESULT_DATA = "result_data"

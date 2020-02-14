@@ -1,13 +1,14 @@
 package cc.femto.architecture.reactive.components.home
 
 import cc.femto.android.common.activity.ModelViewIntentActivity
+import cc.femto.android.common.activity.ViewContainerActivity
 import cc.femto.architecture.reactive.R
 import cc.femto.architecture.reactive.appComponent
 import cc.femto.architecture.reactive.components.home.di.DaggerHomeComponent
 
 class HomeActivity : ModelViewIntentActivity<HomeAction, HomeState>() {
 
-    val homeComponent by lazy { DaggerHomeComponent.factory().create(appComponent(), this) }
+    val homeComponent by lazy { DaggerHomeComponent.factory().create(appComponent(), this as ViewContainerActivity) }
 
     override fun model() = homeComponent.homeModel()
 
