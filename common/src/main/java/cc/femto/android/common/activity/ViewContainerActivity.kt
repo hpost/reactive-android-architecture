@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.ViewGroup
 import androidx.core.app.ComponentActivity
 import cc.femto.kommon.extensions.hideKeyboard
+import cc.femto.rx.extensions.mapSome
 import com.gojuno.koptional.None
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
@@ -37,6 +38,11 @@ abstract class ViewContainerActivity : ComponentActivity() {
      * Emits the latest [Intent] that was captured during [onCreate] or [onNewIntent]
      */
     fun intentObservable(): Observable<Intent> = intentSubject
+
+    /**
+     * Emits deep link URLs extracted from latest [Intent]
+     */
+    fun deepLinkUrlObservable(): Observable<String> = intentSubject.mapSome { dataString }
 
     /**
      * Emits events when the back button is pressed
