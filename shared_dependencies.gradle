@@ -4,7 +4,7 @@ dependencies {
     implementation "com.google.dagger:dagger:${versions.dagger}"
     compileOnly 'javax.annotation:jsr250-api:1.0'
 
-    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta3'
     implementation 'com.google.android.material:material:1.2.0-alpha02'
@@ -29,10 +29,10 @@ dependencies {
 
     implementation "com.jakewharton.rxbinding3:rxbinding:${versions.rxbinding}"
 
-    implementation 'cc.femto:rx-mvi:4.2.0'
+    implementation 'cc.femto:rx-mvi:4.2.1'
     implementation 'cc.femto:rx-mapping-extensions:0.4'
-    implementation 'cc.femto:kotlin-extensions:0.2'
-    implementation 'cc.femto:kommon-extensions:2.2.0'
+    implementation 'cc.femto:kotlin-extensions:0.3'
+    implementation 'cc.femto:kommon-extensions:2.3.0'
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.1.0'

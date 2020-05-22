@@ -5,6 +5,7 @@ import cc.femto.mvi.Action
 import cc.femto.mvi.BaseView
 import cc.femto.mvi.Model
 import cc.femto.mvi.attachComponent
+import cc.femto.mvi.detachComponent
 
 abstract class ModelViewIntentActivity<ACTION : Action, STATE> : ViewContainerActivity() {
 
@@ -26,8 +27,7 @@ abstract class ModelViewIntentActivity<ACTION : Action, STATE> : ViewContainerAc
     }
 
     override fun onDestroy() {
-        view().detach()
-        model().detach()
+        detachComponent(view(), model())
         super.onDestroy()
     }
 }
