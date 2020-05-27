@@ -9,9 +9,9 @@ fun RecyclerView.pageLoadEvents(itemThreshold: Int = 10): Observable<Boolean> =
     this.scrollChangeEvents()
         .map {
             val totalItemCount = this.layoutManager?.itemCount ?: 0
-            val lastVisibleItem = (this.layoutManager as? LinearLayoutManager)
-                ?.findLastVisibleItemPosition() ?: 0
+            val lastVisibleItem = (this.layoutManager as? LinearLayoutManager)?.findLastVisibleItemPosition() ?: 0
             lastVisibleItem + itemThreshold > totalItemCount
+                    && totalItemCount > itemThreshold / 2
         }
         .distinctUntilChanged()
         .filter { shouldLoadPage -> shouldLoadPage }
